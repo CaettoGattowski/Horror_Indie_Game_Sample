@@ -1,0 +1,55 @@
+[gd_scene load_steps=8 format=3 uid="uid://d3pyi0uagkiew"]
+
+[ext_resource type="Script" uid="uid://243vveyi3cae" path="res://Maps/level_1.gd" id="1_cn06v"]
+[ext_resource type="PackedScene" uid="uid://cdb4u3isjd6wk" path="res://Player/player.tscn" id="2_jtfw0"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_aelmi"]
+sky_top_color = Color(0.36817503, 0.4464866, 0.61702764, 1)
+sky_horizon_color = Color(0.5974282, 0.6680552, 0.66508496, 1)
+ground_bottom_color = Color(0.0128906965, 0.21708676, 0.03466497, 1)
+ground_horizon_color = Color(0.5974282, 0.6680552, 0.66508496, 1)
+
+[sub_resource type="Sky" id="Sky_cn06v"]
+sky_material = SubResource("ProceduralSkyMaterial_aelmi")
+
+[sub_resource type="Environment" id="Environment_jtfw0"]
+background_mode = 2
+sky = SubResource("Sky_cn06v")
+tonemap_mode = 2
+sdfgi_enabled = true
+glow_enabled = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_aelmi"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_aelmi"]
+data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
+
+[node name="Level1" type="Node"]
+script = ExtResource("1_cn06v")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_jtfw0")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.9931706, -0.08148464, 0.08350041, 0, 0.71569276, 0.6984153, -0.11667075, 0.69364554, -0.710805, 0, 0, 0)
+shadow_enabled = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." groups=["WoodTerrain"]]
+transform = Transform3D(54.593323, 0, 0, 0, 0.19402848, 0, 0, 0, 34.70402, 0, 0, 0)
+mesh = SubResource("BoxMesh_aelmi")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_aelmi")
+
+[node name="Player" parent="." instance=ExtResource("2_jtfw0")]
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." groups=["GrassTerrain"]]
+transform = Transform3D(54.593323, 0, 0, 0, 0.19402848, 0, 0, 0, 37.72928, 0, 0, 37.7418)
+mesh = SubResource("BoxMesh_aelmi")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D2/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_aelmi")
