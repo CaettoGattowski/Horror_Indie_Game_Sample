@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://u5wdytor1u5u"]
+
+[ext_resource type="Script" uid="uid://dmilcurmec5dt" path="res://Interactables/interact_generic.gd" id="1_pc3am"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bk7ti"]
+
+[node name="interact_generic" type="Area3D" groups=["Interactable"]]
+script = ExtResource("1_pc3am")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+shape = SubResource("BoxShape3D_bk7ti")

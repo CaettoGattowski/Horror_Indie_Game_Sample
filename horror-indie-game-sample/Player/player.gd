@@ -5,6 +5,7 @@ extends CharacterBody3D
 @onready var origCamPos: Vector3 = camera_3d.position
 @onready var floorcast: RayCast3D = $FloorDetectRayCast
 @onready var player_footstep_sound: AudioStreamPlayer2D = $PlayerFootstepSound
+@onready var interactRayCast: RayCast3D = $Camera3D/InteractRayCast
 
 
 #*********CAMERA**********#
@@ -12,6 +13,7 @@ var mouse_sens := 0.15
 
 #*********MOVEMENT**********#
 var direction
+var isRunning := false
 var speed := 3
 var jump := 40.0
 const GRAVITY = 4
@@ -32,15 +34,26 @@ func _input(event):
         rotate_y(deg_to_rad(-event.relative.x * mouse_sens))
         camera_3d.rotate_x(deg_to_rad(-event.relative.y * mouse_sens))
         camera_3d.rotation.x = clamp(camera_3d.rotation.x, deg_to_rad(-89), deg_to_rad(89))
+    
+    if Input.is_action_just_pressed("run"):
+        isRunning = true
+    if Input.is_action_just_released("run"):
+        isRunning = false
+        
+    if Input.is_action_just_pressed("interact"):
+        var interacted = interactRayCast.get_collider()
+        if interacted != null and interacted.is_in_group("Interactable") and interacted.has_method("action_use"):
+            interacted.action_use()
+        
 
 func _process(delta):
     _process_camBob(delta)
     
     if floorcast.is_colliding():
         var walkingTerrain = floorcast.get_collider().get_parent()
-        if walkingTerrain != null:
+        if walkingTerrain != null and walkingTerrain.get_groups().size() > 0:
             var terrainGroup = walkingTerrain.get_groups()[0]
-            print(terrainGroup)
+            #print(terrainGroup)
             processGroundSounds(terrainGroup)
 
 
@@ -48,8 +61,12 @@ func processGroundSounds(group : String):
     
     # read state machine in case that you also want the player to play sounds faster or slower
     # depending on if the player is running or crouching
+    if isRunning:
+        playFootstep = 6.5
+    else:
+        playFootstep = 10
     
-    if playFootstep != 100 and (int(velocity.x) != 0) || int(velocity.z) != 0:
+    if (int(velocity.x) != 0) || int(velocity.z) != 0:
         distanceFootstep += .1
     if distanceFootstep > playFootstep and is_on_floor():
         match group:
@@ -75,11 +92,12 @@ func process_movement(delta):
     
     direction.x = -Input.get_action_strength("ui_left") +Input.get_action_strength("ui_right")
     direction.z = -Input.get_action_strength("ui_up") +Input.get_action_strength("ui_down")
-    
     direction = Vector3(direction.x, 0, direction.z).rotated(Vector3.UP, h_rot).normalized()
     
-    velocity.x = direction.x * speed
-    velocity.z = direction.z * speed
+    var actualSpeed = speed if !isRunning else speed * 4.5
+    #print(actualSpeed)
+    velocity.x = direction.x * actualSpeed
+    velocity.z = direction.z * actualSpeed
     
       
     if Input.is_action_just_pressed("jump") and is_on_floor():
@@ -96,7 +114,10 @@ func _process_camBob(delta):
     
     var cam_bob # speed
     var objCam # how much up and down the camera moves
-    if direction != Vector3.ZERO: # player is moving
+    if isRunning:
+        cam_bob = floor(abs(direction.z) + abs(direction.x)) * _delta * camBobSpeed * 2
+        objCam = origCamPos + Vector3.UP * sin(cam_bob) * camBobUpDown
+    elif direction != Vector3.ZERO: # player is moving
         cam_bob = floor(abs(direction.z) + abs(direction.x)) * _delta * camBobSpeed
         objCam = origCamPos + Vector3.UP * sin(cam_bob) * camBobUpDown
     else: # player isnt moving
