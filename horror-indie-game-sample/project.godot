@@ -31,6 +31,8 @@ folder_colors={
 WoodTerrain=""
 GrassTerrain=""
 Interactable=""
+TileTerrain=""
+BootTerrain=""
 
 [input]
 

@@ -74,6 +74,10 @@ func processGroundSounds(group : String):
                 player_footstep_sound.stream = load("res://Player/SoundsFootsteps/wood/1.ogg")
             "GrassTerrain":
                 player_footstep_sound.stream = load("res://Player/SoundsFootsteps/grass/0.ogg")
+            "TileTerrain":
+                player_footstep_sound.stream = load("res://Player/SoundsFootsteps/tile/4.ogg")
+            "BootTerrain":
+                player_footstep_sound.stream = load("res://Player/SoundsFootsteps/boots/1.ogg")
                 
         player_footstep_sound.pitch_scale = randf_range(.8, 1.2)
         player_footstep_sound.play()
