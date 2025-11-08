@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://dc5w74unhdmwj"]
+
+[ext_resource type="Script" uid="uid://bwqah27a6g7vw" path="res://Interactables/key.gd" id="1_yy3dd"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_8mww1"]
+radius = 0.1
+height = 0.5
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_du8sj"]
+points = PackedVector3Array(0.09531453, 0.17005347, 0.021370694, -0.0965806, -0.1694851, -0.015514232, -0.08865633, -0.17576264, -0.037392225, -0.081994474, 0.19196208, -0.037692863, -0.030040324, 0.16092476, 0.09429995, 0.058352616, -0.18486193, 0.073143885, 0.042984895, -0.16787179, -0.088369295, 0.013950321, 0.16975424, -0.096732706, -0.07376083, -0.1678501, 0.06487497, 0.09429995, -0.16092476, -0.030040324, 0.0144295255, -0.24388099, -0.031259373, -0.044583995, -0.16059846, -0.08839293, -0.09557434, 0.15313154, 0.028356804, 0.014455736, 0.24430087, 0.02972454, 0.07222416, 0.16796656, -0.06650782, 0.04969661, 0.15870747, 0.08577419, -0.0007936433, -0.17801659, 0.09561313, -0.058442518, 0.158551, -0.080067724, -0.03092996, -0.2336874, 0.04442042, 0.093418255, -0.14494707, 0.035430357, 0.02930779, 0.2334169, -0.04595537, -0.061047778, 0.2259895, 0.021789676, 0.059734035, -0.22701547, 0.021892201, -0.023539279, 0.23521994, -0.046304226, -0.095385596, 0.14553179, -0.02988604, -0.03830322, -0.22513679, -0.053314686, -0.07376108, 0.16785069, 0.0648752, 0.095052294, 0.16958947, -0.022897504, -0.015513712, -0.16947912, -0.09657721, -0.051193424, -0.1512487, 0.08561907, 0.07953332, 0.1679781, 0.057620898, -0.030683722, 0.20934032, 0.07396009)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yy3dd"]
+size = Vector3(0.6130371, 0.60491943, 0.63964844)
+
+[node name="BedroomKey" type="Area3D" groups=["Interactable"]]
+script = ExtResource("1_yy3dd")
+
+[node name="Key" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Key"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0035407543, 0.005686283, 0)
+mesh = SubResource("CapsuleMesh_8mww1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Key"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00037622452, -0.0053088665, 0)
+shape = SubResource("ConvexPolygonShape3D_du8sj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.013567686, 0.028615594, 0.020996094)
+shape = SubResource("BoxShape3D_yy3dd")

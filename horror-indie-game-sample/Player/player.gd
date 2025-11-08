@@ -6,6 +6,7 @@ extends CharacterBody3D
 @onready var floorcast: RayCast3D = $FloorDetectRayCast
 @onready var player_footstep_sound: AudioStreamPlayer2D = $PlayerFootstepSound
 @onready var interactRayCast: RayCast3D = $Camera3D/InteractRayCast
+@onready var interact_label: Label = $InteractLabel
 
 
 #*********CAMERA**********#
@@ -55,6 +56,19 @@ func _process(delta):
             var terrainGroup = walkingTerrain.get_groups()[0]
             #print(terrainGroup)
             processGroundSounds(terrainGroup)
+            
+    prompInteractables()
+            
+func prompInteractables():
+    if interactRayCast.is_colliding():
+        if is_instance_valid(interactRayCast.get_collider()):
+            if interactRayCast.get_collider().is_in_group("Interactable"):
+                interact_label.text = interactRayCast.get_collider().type
+                interact_label.visible = true
+            else:
+                interact_label.visible = false
+    else:
+        interact_label.visible = false
 
 
 func processGroundSounds(group : String):

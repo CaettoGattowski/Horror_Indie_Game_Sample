@@ -18,7 +18,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6903956, -0.15919638)
 fov = 60.47006
 
 [node name="InteractRayCast" type="RayCast3D" parent="Camera3D"]
-target_position = Vector3(0, 0, -5)
+target_position = Vector3(0, 0, -2)
 collide_with_areas = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -30,3 +30,17 @@ mesh = SubResource("CapsuleMesh_hvfyp")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.33649266, 0)
 
 [node name="PlayerFootstepSound" type="AudioStreamPlayer2D" parent="."]
+
+[node name="InteractLabel" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.5
+offset_top = -11.5
+offset_right = 30.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Interact"

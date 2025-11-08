@@ -4,11 +4,11 @@
 [ext_resource type="Material" uid="uid://ekdrytlgutpd" path="res://Assets/Textures/wood_1.tres" id="2_6s5vx"]
 [ext_resource type="PackedScene" uid="uid://cdb4u3isjd6wk" path="res://Player/player.tscn" id="2_jtfw0"]
 [ext_resource type="Material" uid="uid://dk4bnfcvw28th" path="res://Assets/Textures/marble_1.tres" id="2_p2agd"]
-[ext_resource type="PackedScene" uid="uid://cg7vqxv4yat6r" path="res://Interactables/cube_interactable.tscn" id="4_6rgku"]
 [ext_resource type="PackedScene" uid="uid://bx15i3ldpx2j6" path="res://Assets/MyModels/Chair.gltf" id="7_l2n6b"]
 [ext_resource type="PackedScene" uid="uid://hlm3gj5nk8j7" path="res://Assets/MyModels/first_bed.gltf" id="7_r4ufe"]
 [ext_resource type="Texture2D" uid="uid://bqfuskks2qhoj" path="res://Assets/Textures/painting.png" id="8_r4ufe"]
-[ext_resource type="PackedScene" uid="uid://chbqfc0v8rspn" path="res://Assets/MyModels/Door.gltf" id="9_8mww1"]
+[ext_resource type="PackedScene" uid="uid://d2ebiuq7xaskj" path="res://Interactables/door.tscn" id="9_8mww1"]
+[ext_resource type="PackedScene" uid="uid://dc5w74unhdmwj" path="res://Interactables/BedroomKey.tscn" id="10_eyd1b"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_aelmi"]
 sky_top_color = Color(0.36817503, 0.4464866, 0.61702764, 1)
@@ -138,9 +138,6 @@ shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("2_jtfw0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.012439, 0, -2.9587889)
-
-[node name="CubeInteractable" parent="." instance=ExtResource("4_6rgku")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.757423, 4.1181574, -5.8033834)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0605378, 3.4238136, -2.2393093)
@@ -475,16 +472,12 @@ shaded = true
 texture = ExtResource("8_r4ufe")
 
 [node name="Door" parent="." instance=ExtResource("9_8mww1")]
-transform = Transform3D(-4.371139e-08, 0, 0.4531585, 0, 0.6403224, 0, -1, 0, -1.9808187e-08, 1.8242037, -1.7285693, 5.001699)
+transform = Transform3D(-1.2906806e-08, 0, 0.45757228, 0, 0.6520731, 0, -0.29527333, 0, -2.0001119e-08, 2.1792483, -1.7813375, 1.9262671)
+isLocked = true
+keyPath = NodePath("../BedroomKey")
 
-[node name="Door2" parent="." instance=ExtResource("9_8mww1")]
-transform = Transform3D(1, 0, 0, 0, 0.6403224, 0, 0, 0, 0.4531585, 1.210443, -1.7533174, 5.168888)
-
-[node name="Door3" parent="." instance=ExtResource("9_8mww1")]
-transform = Transform3D(1, 0, 0, 0, 0.6403224, 0, 0, 0, 0.4531585, -3.1067386, -1.7533174, 9.035211)
-
-[node name="Door4" parent="." instance=ExtResource("9_8mww1")]
-transform = Transform3D(1, 0, 0, 0, 0.6403224, 0, 0, 0, 0.4531585, -14.186556, -1.7533174, 12.356213)
+[node name="BedroomKey" parent="." instance=ExtResource("10_eyd1b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.69578016, 1.2608981, -1.2375033)
 
 [editable path="Chair"]
 [editable path="first_bed"]
