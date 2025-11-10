@@ -1,0 +1,50 @@
+[gd_scene load_steps=3 format=3 uid="uid://dcjdxkgid2cg5"]
+
+[ext_resource type="Script" path="res://NPCS/dialogue_box.gd" id="1_ts4u0"]
+[ext_resource type="AudioStream" uid="uid://bemc5twvrio3u" path="res://Maps/Stab_Knife_00.mp3" id="2_4noik"]
+
+[node name="DialogueBox" type="ColorRect"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -190.0
+offset_top = -82.0
+offset_right = 197.0
+offset_bottom = -13.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0, 0, 0, 0.501961)
+script = ExtResource("1_ts4u0")
+
+[node name="Name" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 1.0
+offset_top = -30.0
+offset_right = 171.0
+offset_bottom = -5.0
+text = "Name"
+
+[node name="Text" type="RichTextLabel" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 6.0
+offset_top = 8.0
+offset_right = 379.0
+offset_bottom = 64.0
+theme_override_font_sizes/normal_font_size = 10
+text = "Nam"
+scroll_following = true
+
+[node name="Indicator" type="Polygon2D" parent="."]
+position = Vector2(-4, 0)
+color = Color(0.752941, 0.0509804, 0.0862745, 1)
+polygon = PackedVector2Array(374, 62, 386, 62, 380, 68)
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AudioLetter" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_4noik")
+volume_db = -20.0

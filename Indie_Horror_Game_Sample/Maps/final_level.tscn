@@ -1,0 +1,76 @@
+[gd_scene load_steps=8 format=3 uid="uid://bg8hp673w86e0"]
+
+[ext_resource type="PackedScene" uid="uid://cunkrsiqoa5ao" path="res://Player/player.tscn" id="1_4twc7"]
+[ext_resource type="Script" path="res://Maps/final_level.gd" id="1_ueisr"]
+[ext_resource type="PackedScene" uid="uid://by35oreohyr2i" path="res://NPCS/npc.tscn" id="2_2otqw"]
+
+[sub_resource type="Environment" id="Environment_t8qdf"]
+background_mode = 1
+tonemap_mode = 2
+ssao_enabled = true
+sdfgi_enabled = true
+glow_enabled = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_hjhl2"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_g55qu"]
+data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_73oax"]
+size = Vector3(39, 14, 1)
+
+[node name="finalLevel" type="Node"]
+script = ExtResource("1_ueisr")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_t8qdf")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." groups=["WoodTerrain"]]
+transform = Transform3D(41.472, 0, 0, 0, 0.2, 0, 0, 0, 21.9765, 0, 0, 0)
+mesh = SubResource("BoxMesh_hjhl2")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_g55qu")
+
+[node name="BlockingVolume" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BlockingVolume"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
+shape = SubResource("BoxShape3D_73oax")
+
+[node name="BlockingVolume3" type="StaticBody3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 15, 0, 8)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BlockingVolume3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
+shape = SubResource("BoxShape3D_73oax")
+
+[node name="BlockingVolume4" type="StaticBody3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -21, 0, 8)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BlockingVolume4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
+shape = SubResource("BoxShape3D_73oax")
+
+[node name="BlockingVolume2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 13)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BlockingVolume2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
+shape = SubResource("BoxShape3D_73oax")
+
+[node name="Player" parent="." instance=ExtResource("1_4twc7")]
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -10, 6, 0)
+spot_range = 22.0
+spot_angle = 65.3222
+
+[node name="NPC" parent="." instance=ExtResource("2_2otqw")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -12, 0, -1)
+dialogPath = "res://NPCS/myDialogue.json"
+
+[connection signal="hasTalkedWithMe" from="NPC" to="." method="_on_npc_has_talked_with_me"]

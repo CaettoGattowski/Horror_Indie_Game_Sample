@@ -1,0 +1,43 @@
+[gd_scene load_steps=8 format=3 uid="uid://dwtoeutltindl"]
+
+[ext_resource type="PackedScene" uid="uid://dts0xv8am5hsr" path="res://Assets/MyModels/key.gltf" id="1_35blt"]
+[ext_resource type="Script" path="res://Interactables/key_level_5_collectable.gd" id="1_sv67e"]
+[ext_resource type="Texture2D" uid="uid://bcdpvjyckttpm" path="res://Maps/mosquito.png" id="2_35tu5"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_4l7bt"]
+direction = Vector3(1, 1, 1)
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 2.0
+initial_velocity_max = 10.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lqype"]
+transparency = 1
+albedo_texture = ExtResource("2_35tu5")
+texture_filter = 0
+billboard_mode = 2
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_3k3gj"]
+material = SubResource("StandardMaterial3D_lqype")
+size = Vector2(0.3, 0.3)
+orientation = 2
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_6e6vx"]
+radius = 1.0
+
+[node name="KeyLevel5Collectable" type="Area3D"]
+script = ExtResource("1_sv67e")
+
+[node name="key" parent="." instance=ExtResource("1_35blt")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1, 0)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+amount = 20
+lifetime = 3.0
+process_material = SubResource("ParticleProcessMaterial_4l7bt")
+draw_pass_1 = SubResource("PlaneMesh_3k3gj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_6e6vx")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

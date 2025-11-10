@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://j0pg3wwx2gge"]
+
+[ext_resource type="Script" path="res://Interactables/key.gd" id="1_hrbbj"]
+[ext_resource type="PackedScene" uid="uid://dts0xv8am5hsr" path="res://Assets/MyModels/key.gltf" id="2_6nqlr"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ywx74"]
+size = Vector3(1, 2, 2)
+
+[node name="Key" type="Area3D" groups=["Interactable"]]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+script = ExtResource("1_hrbbj")
+type = "Key"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_ywx74")
+
+[node name="key" parent="." instance=ExtResource("2_6nqlr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.4)
