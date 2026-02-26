@@ -1,7 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://cunkrsiqoa5ao"]
+[gd_scene format=3 uid="uid://cunkrsiqoa5ao"]
 
-[ext_resource type="Script" path="res://Player/player.gd" id="1_tylyr"]
-[ext_resource type="Shader" path="res://Player/vhs.gdshader" id="2_datqc"]
+[ext_resource type="Script" uid="uid://bc3ane4tmfibi" path="res://Player/player.gd" id="1_tylyr"]
+[ext_resource type="Shader" uid="uid://dm23bk20uuy55" path="res://Player/vhs.gdshader" id="2_datqc"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ax68q"]
 
@@ -51,35 +51,35 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vsidh"]
 _data = {
-"RESET": SubResource("Animation_4lx15"),
-"fade_in": SubResource("Animation_lfpth")
+&"RESET": SubResource("Animation_4lx15"),
+&"fade_in": SubResource("Animation_lfpth")
 }
 
-[node name="Player" type="CharacterBody3D" groups=["Player"]]
+[node name="Player" type="CharacterBody3D" unique_id=743768546 groups=["Player"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("1_tylyr")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=285372034]
 shape = SubResource("CapsuleShape3D_ax68q")
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="Camera3D" type="Camera3D" parent="." unique_id=787742808]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 current = true
 
-[node name="InteractRayCast" type="RayCast3D" parent="Camera3D"]
+[node name="InteractRayCast" type="RayCast3D" parent="Camera3D" unique_id=294027967]
 target_position = Vector3(0, 0, -5)
 collide_with_areas = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1105442656]
 cast_shadow = 0
 mesh = SubResource("CapsuleMesh_803jg")
 
-[node name="FloorDetectRayCast" type="RayCast3D" parent="."]
+[node name="FloorDetectRayCast" type="RayCast3D" parent="." unique_id=964063683]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 
-[node name="PlayerFootstepSound" type="AudioStreamPlayer" parent="."]
+[node name="PlayerFootstepSound" type="AudioStreamPlayer" parent="." unique_id=1904611325]
 
-[node name="InteractLabel" type="Label" parent="."]
+[node name="InteractLabel" type="Label" parent="." unique_id=1396220082]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -94,10 +94,10 @@ grow_vertical = 2
 text = "Interact"
 label_settings = SubResource("LabelSettings_e4dme")
 
-[node name="Crosshair" type="Polygon2D" parent="."]
+[node name="Crosshair" type="Polygon2D" parent="." unique_id=1146210045]
 polygon = PackedVector2Array(211, 119, 212, 118, 213, 119, 212, 120)
 
-[node name="ShaderVHS" type="ColorRect" parent="."]
+[node name="ShaderVHS" type="ColorRect" parent="." unique_id=1538632903]
 material = SubResource("ShaderMaterial_543on")
 anchors_preset = 15
 anchor_right = 1.0
@@ -107,7 +107,8 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
-[node name="Fade_in" type="ColorRect" parent="."]
+[node name="Fade_in" type="ColorRect" parent="." unique_id=1733122735]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -116,8 +117,6 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "fade_in"
-libraries = {
-"": SubResource("AnimationLibrary_vsidh")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1320478694]
+libraries/ = SubResource("AnimationLibrary_vsidh")
+autoplay = &"fade_in"
